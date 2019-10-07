@@ -1,76 +1,59 @@
-//TODO: REFACTOR!
-
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateFood, deleteFood } from '../../actions/foodActions';
+import { getScores, deleteScore, newScore } from '../actions/scoreActions.js';
+const superagent = require('superagent');
 
-class Dish extends React.Component {
-  constructor(props){
+const API_URL = 'http://localhost:8080';
+
+class Score extends React.Component {
+  constructor(props) {
     super(props);
-    this.state = {
-      originalName: '',
-      name: '',
-      flavor: '',
-    }
+    console.log(this.props);
   }
 
-  componentDidMount(){
-    if (this.props.dish){
-      this.setState({ originalName: this.props.dish.name, name: this.props.dish.name, flavor: this.props.dish.flavor });
-    }
+    componentDidMount(){
+      superagent.get(`${API_URL}/score`)
+      .then(results => {
+        this.props.getScores(results.body);
+      })
+      .catch(console.log('error here'));
+  };
+
+  getScores = (event) => {
+    event.preventDefault();
+    this.props.getScores(this.state);
   }
-
-  // componentDidUpdate(){
-  //   if (this.props.dish){
-  //     this.setState({ originalName:  });
-  //   }
-  // }
-
+  
   handleUpdate = (event) => {
     event.preventDefault();
-    this.props.updateFood(this.state);
+    this.props.newScore(this.state);
   }
-
+  
   handleDelete = (event) => {
-    this.props.deleteFood(event.target.name);
+    this.props.deleteScore(event.target.id);
   }
-
-  handleChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value })
-  }
-
   render(){
     return(
+      // coming back as undefined
       <React.Fragment>
-        <li>{`${this.props.dish.name} ${this.props.dish.flavor}`}</li>
-        <form onSubmit={this.handleUpdate}>
-          <input
-            type="text"
-            placeholder='name'
-            name='name'
-            value={this.state.name}
-            onChange={this.handleChange}
-          />
-          <input
-            type="text"
-            placeholder='flavor'
-            name='flavor'
-            value={this.state.flavor}
-            onChange={this.handleChange}
-          />
-          <button name={this.props.dish.name}>UPDATE</button>
-        </form>
-        <button name={this.props.dish.name} onClick={this.handleDelete}>DELETE</button>
+        <li>{`${this.props.id} ${this.props.name} ${this.props.score}`}</li>
+        <li>{`${this.props.id} ${this.props.name} ${this.props.score}`}</li>
+        <li>{`${this.props.id} ${this.props.name} ${this.props.score}`}</li>
+        <li>{`${this.props.id} ${this.props.name} ${this.props.score}`}</li>
+        <li>{`${this.props.id} ${this.props.name} ${this.props.score}`}</li>
       </React.Fragment>
     );
-  }
-}
+  };
+};
+
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateFood: (dish) => dispatch(updateFood(dish)),
-    deleteFood: (name) => dispatch(deleteFood(name))
+    getScores: (score) => dispatch(getScores(score)),
+    newScore: (score) => dispatch(newScore(score)),
+    deleteScore: (id) => dispatch(deleteScore(id))
   }
 }
 
-export default connect(null, mapDispatchToProps)(Dish);
+
+export default connect(null, mapDispatchToProps)(Score);

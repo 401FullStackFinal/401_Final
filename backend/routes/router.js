@@ -2,27 +2,25 @@
 
 const express = require('express');
 const scoreRoute = express.Router();
-const uuid = require('uuid/v4');
-
 
 let scores = [
-  { id: uuid(), name: 'Baby Khaleesi', score: 10000000 },
-  { id: uuid(), name: 'Ginger', score: 100 },
-  { id: uuid(), name: 'Khal Basil', score: 100 },
-  { id: uuid(), name: 'Rosie', score: 99 },
-  { id: uuid(), name: 'Demi Dog', score: 50 },
+  { id: 1, name: 'Baby Khaleesi', score: 10000000 },
+  { id: 2, name: 'Ginger', score: 100 },
+  { id: 3, name: 'Khal Basil', score: 100 },
+  { id: 4, name: 'Rosie', score: 99 },
+  { id: 5, name: 'Demi Dog', score: 50 },
 ];
 
 
 scoreRoute.get('/score', getScores);
 scoreRoute.post('/score/addOne', addNewScore);
-// scoreRoute.delete('/score/:id', deleteOne);
+scoreRoute.delete('/score/:id', deleteOne);
 // scoreRoute.get('/score/:id', getHigherScores); 
 
 
 // GET /scores
 function getScores(request, response) {
-  response.send(scores.score);
+  response.send(request.body.scores);
 };
 
 // POST /scores
@@ -43,7 +41,6 @@ function deleteOne(request, response) {
 }
 
 // GET /scores-bigger-than/:value
-
 
 // function rewriteFood(request, response){
 //   let { originalName, name, flavor } = request.body;

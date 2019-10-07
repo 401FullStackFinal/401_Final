@@ -1,10 +1,11 @@
 import React from 'react';
-// import Food from './food/food';
+import Score from './scores/index.js';
+
 
 function App() {
   return (
     <React.Fragment>
-      <Food />
+      <Score />
     </React.Fragment>
   );
 }
