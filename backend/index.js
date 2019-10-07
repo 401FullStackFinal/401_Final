@@ -1,13 +1,10 @@
 'use strict';
 
-const mongoose = require('mongoose');
-
 require('dotenv').config();
+
+const scoreRouter = require('./routes/router.js')
 
 const app = require('./src/app.js');
 
-mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false})
-  .then(() => console.log('Database Be Connected <3'))
-  .catch(console.error);
+app.start(8080);
 
-app.start(process.env.PORT || 3000);

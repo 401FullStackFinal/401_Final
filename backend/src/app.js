@@ -1,7 +1,5 @@
 'use strict';
 
-require('dotenv').config();
-
 //3rd party resources
 const express = require('express');
 const cors = require('cors');
@@ -21,11 +19,12 @@ app.use(express.urlencoded({extended:true}));
 
 // Routes
 //TODO: comeback and refactor this
-app.use('/slack', slackRoutes); 
+// app.use('/slack', slackRoutes); 
 
 // Catchalls
 app.use(notFound);
 app.use(errorHandler);
+
 
 //exporting server and start
 module.exports = {
