@@ -43,7 +43,7 @@ class App extends React.Component {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name: this.state.petsObject.name, favorite_toy: this.state.petsObject.favorite_toy }),
+      body: JSON.stringify({ name: this.state.petsObject.newName.name, favorite_toy: this.state.petsObject.newName.favorite_toy }),
     }).then(response => response.json())
       .then(body => this.setState((previousState) => {
         return { pets: {...previousState.pets, body}}
@@ -66,31 +66,31 @@ class App extends React.Component {
 
               <li key={this.state._id} >
 
-               <p> {this.state.petsObject.Khali.name} | {this.state.petsObject.Khali.favorite_toy}</p> 
-               <p> {this.state.petsObject.Ginger.name} | {this.state.petsObject.Ginger.favorite_toy} </p>
-               <p> {this.state.petsObject.Khal.name} | {this.state.petsObject.Khal.favorite_toy}</p>
-               <p> {this.state.petsObject.Rosie.name} | {this.state.petsObject.Rosie.favorite_toy}</p>
-               <p> {this.state.petsObject.Demi.name} | {this.state.petsObject.Demi.favorite_toy}</p>
-
-                <button onClick={(event) => this.handleDelete(event, this.state._id)}>
-                  Delete
-               
-                </button>
+               <p> {this.state.petsObject.Khali.name} | {this.state.petsObject.Khali.favorite_toy}</p> <button onClick={(event) => this.handleDelete(event, this.state._id)}>
+                  Delete </button>
+               <p> {this.state.petsObject.Ginger.name} | {this.state.petsObject.Ginger.favorite_toy} </p> <button onClick={(event) => this.handleDelete(event, this.state._id)}>
+                  Delete </button>
+               <p> {this.state.petsObject.Khal.name} | {this.state.petsObject.Khal.favorite_toy}</p> <button onClick={(event) => this.handleDelete(event, this.state._id)}>
+                  Delete </button>
+               <p> {this.state.petsObject.Rosie.name} | {this.state.petsObject.Rosie.favorite_toy}</p><button onClick={(event) => this.handleDelete(event, this.state._id)}>
+                  Delete </button>
+               <p> {this.state.petsObject.Demi.name} | {this.state.petsObject.Demi.favorite_toy}</p> <button onClick={(event) => this.handleDelete(event, this.state._id)}>
+                  Delete </button>
+               <p> {this.state.petsObject.newName.name} | {this.state.petsObject.newName.favorite_toy}</p> <button onClick={(event) => this.handleDelete(event, this.state._id)}>
+                  Delete </button>
+                  
               </li>
-            
-        
-
 
         </ul>
         <form onSubmit={this.handleAdd}>
           <input
             name="name"
-            value={this.state.name}
+            // value={this.state.name}
             onChange={this.handleChange}
           />
           <input
             name="favoriteToy"
-            value={this.state.favorite_toy}
+            // value={this.state.favorite_toy}
             onChange={this.handleChange}
           />
           <button type="submit">Add</button>
