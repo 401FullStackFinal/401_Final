@@ -47,6 +47,7 @@ class App extends React.Component {
     this.setState({ [name]: value });
   }
 
+  // TODO: On Scores page, unable to take any input, why? 
   render() {
     return (
       <div className="App">
