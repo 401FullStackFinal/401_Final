@@ -5,8 +5,8 @@ class App extends React.Component {
     super(); 
     this.state = {
       scores: [],
-      name: '',
-      score: '',
+      nameData: '',
+      scoreData: '',
     }
   }
 
@@ -18,7 +18,7 @@ class App extends React.Component {
 
   handleDelete  = (event, _id) => {
     event.preventDefault();
-    fetch('http://localhost8080/score', {
+    fetch('http://localhost:8080/score', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ class App extends React.Component {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name: this.state.name, score: this.state.score }),
+      body: JSON.stringify({ name: this.state.nameData, score: this.state.scoreData }),
     }).then(response => response.json())
       .then(data => this.setState((previousState) => {
         return { scores: [...previousState.scores, data].sort((a, b) => b.score - a.score)}
@@ -67,16 +67,14 @@ class App extends React.Component {
         </ul>
 
         <form onSubmit={this.handleAdd}>
-          
           <input
-            name="nameInput"
-            value={this.state.name}
+            name="name"
+            value={this.state.nameData}
             onChange={this.handleChange}
           />
-
           <input
-            name="scoreInput"
-            value={this.state.score}
+            name="score"
+            value={this.state.scoreData}
             onChange={this.handleChange}
           />
 
@@ -84,7 +82,7 @@ class App extends React.Component {
 
         </form>
       </div>
-    )
+    );
   }
 
 } 
