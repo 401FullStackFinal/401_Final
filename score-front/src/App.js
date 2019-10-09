@@ -5,8 +5,8 @@ class App extends React.Component {
     super(); 
     this.state = {
       toys: [],
-      nameData: '',
-      toyData: '',
+      name: '',
+      favoriteToy: '',
     }
   }
 
@@ -35,10 +35,10 @@ class App extends React.Component {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name: this.state.nameData, toy: this.state.toyData }),
+      body: JSON.stringify({ name: this.state.name, favorite_toy: this.state.favoriteToy }),
     }).then(response => response.json())
       .then(body => this.setState((previousState) => {
-        return { toys: [...previousState.toys, body].sort((a, b) => b.toy - a.toy)}
+        return { toys: [...previousState.toys, body]}
       }));
   }
 
@@ -57,7 +57,7 @@ class App extends React.Component {
         {this.state.toys.map((toy, index) => {
             return (
               <li key={toy._id} >
-                {index === 0 ? <p> {toy.name} - {toy.favorite_toy}</p> : <p> {toy.name} - {toy.favorite_toy} </p>}
+                {index === 0 ? <p> {toy.name} | {toy.favorite_toy}</p> : <p> {toy.name} | {toy.favorite_toy} </p>}
                 <button onClick={(event) => this.handleDelete(event, toy._id)}>
                   Delete
                 </button>
@@ -69,12 +69,12 @@ class App extends React.Component {
         <form onSubmit={this.handleAdd}>
           <input
             name="name"
-            value={this.state.nameData}
+            value={this.state.name}
             onChange={this.handleChange}
           />
           <input
-            name="toy"
-            value={this.state.toyData}
+            name="favoriteToy"
+            value={this.state.favorite_toy}
             onChange={this.handleChange}
           />
           <button type="submit">Add</button>
