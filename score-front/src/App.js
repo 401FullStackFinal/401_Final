@@ -4,41 +4,41 @@ class App extends React.Component {
   constructor() {
     super(); 
     this.state = {
-      scores: [],
+      toys: [],
       nameData: '',
-      scoreData: '',
+      toyData: '',
     }
   }
 
   componentDidMount() {
-    fetch('http://localhost:8080/score')
+    fetch('http://localhost:8080/toys')
     .then(response => response.json())
-    .then(body => this.setState({ scores: body }));
+    .then(body => this.setState({ toys: body }));
   }
 
   handleDelete  = (event, _id) => {
     event.preventDefault();
-    fetch('http://localhost:8080/score', {
+    fetch('http://localhost:8080/toys/:id', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ _id }),
     }).then(response => response.json())
-      .then(body => this.setState({ scores: body }));
+      .then(body => this.setState({ toys: body }));
   }
 
   handleAdd = (event) => {
     event.preventDefault();
-    fetch('http://localhost:8080/score', {
+    fetch('http://localhost:8080/toys', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name: this.state.nameData, score: this.state.scoreData }),
+      body: JSON.stringify({ name: this.state.nameData, toy: this.state.toyData }),
     }).then(response => response.json())
-      .then(data => this.setState((previousState) => {
-        return { scores: [...previousState.scores, data].sort((a, b) => b.score - a.score)}
+      .then(body => this.setState((previousState) => {
+        return { toys: [...previousState.toys, body].sort((a, b) => b.toy - a.toy)}
       }));
   }
 
@@ -47,18 +47,18 @@ class App extends React.Component {
     this.setState({ [name]: value });
   }
 
-  // TODO: On Scores page, unable to take any input, why? 
+  // TODO: On toys page, unable to take any input, why? 
   render() {
     return (
       <div className="App">
-        <h1>High Scores</h1>
+        <h1>Favorite Toys</h1>
         <ul>
 
-        {this.state.scores.map((score, index) => {
+        {this.state.toys.map((toy, index) => {
             return (
-              <li key={score._id} >
-                {index === 0 ? <p> High Score {score.name} - {score.score}</p> : <p> {score.name} - {score.score} </p>}
-                <button onClick={(event) => this.handleDelete(event, score._id)}>
+              <li key={toy._id} >
+                {index === 0 ? <p> {toy.name} - {toy.favorite_toy}</p> : <p> {toy.name} - {toy.favorite_toy} </p>}
+                <button onClick={(event) => this.handleDelete(event, toy._id)}>
                   Delete
                 </button>
               </li>
@@ -66,7 +66,6 @@ class App extends React.Component {
           }
         )}
         </ul>
-
         <form onSubmit={this.handleAdd}>
           <input
             name="name"
@@ -74,18 +73,16 @@ class App extends React.Component {
             onChange={this.handleChange}
           />
           <input
-            name="score"
-            value={this.state.scoreData}
+            name="toy"
+            value={this.state.toyData}
             onChange={this.handleChange}
           />
-
           <button type="submit">Add</button>
 
         </form>
       </div>
     );
   }
-
 } 
 
 export default App;
