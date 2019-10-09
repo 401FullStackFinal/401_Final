@@ -4,16 +4,20 @@ class App extends React.Component {
   constructor() {
     super(); 
     this.state = {
-      toys: [],
-      name: '',
-      favoriteToy: '',
+      petsObject: {
+        name: '',
+        favoriteToy: '',
+      },
+      // toys: [],
+      // name: '',
+      // favoriteToy: '',
     }
   }
 
   componentDidMount() {
     fetch('http://localhost:8080/toys')
     .then(response => response.json())
-    .then(body => this.setState({ toys: body }));
+    .then(body => this.setState({ previousObject: body }));
   }
 
   handleDelete  = (event, _id) => {
@@ -25,7 +29,7 @@ class App extends React.Component {
       },
       body: JSON.stringify({ _id }),
     }).then(response => response.json())
-      .then(body => this.setState({ toys: body }));
+      .then(body => this.setState({ petsObject: body }));
   }
 
   handleAdd = (event) => {
@@ -35,10 +39,10 @@ class App extends React.Component {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name: this.state.name, favorite_toy: this.state.favoriteToy }),
+      body: JSON.stringify({ name: this.state.pets.name, favorite_toy: this.state.pets.favoriteToy }),
     }).then(response => response.json())
       .then(body => this.setState((previousState) => {
-        return { toys: [...previousState.toys, body]}
+        return { pets: [...previousState.pets, body]}
       }));
   }
 
@@ -47,24 +51,28 @@ class App extends React.Component {
     this.setState({ [name]: value });
   }
 
-  // TODO: On toys page, unable to take any input, why? 
   render() {
     return (
+
       <div className="App">
+
         <h1>Favorite Toys</h1>
         <ul>
+          
 
-        {this.state.toys.map((toy, index) => {
-            return (
-              <li key={toy._id} >
-                {index === 0 ? <p> {toy.name} | {toy.favorite_toy}</p> : <p> {toy.name} | {toy.favorite_toy} </p>}
-                <button onClick={(event) => this.handleDelete(event, toy._id)}>
+              <li key={this.state._id} >
+
+               <p> {this.state.petsObject.name} | {this.state.petsObject.favorite_toy}</p> : <p> {this.state.petsObject.name} | {this.state.petsObject.favorite_toy} </p>}
+                
+                <button onClick={(event) => this.handleDelete(event, this.state._id)}>
                   Delete
+               
                 </button>
               </li>
-            )
-          }
-        )}
+            
+        
+
+
         </ul>
         <form onSubmit={this.handleAdd}>
           <input
