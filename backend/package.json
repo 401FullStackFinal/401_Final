@@ -1,0 +1,39 @@
+{
+  "name": "401 Final Exam",
+  "version": "1.0.0",
+  "description": "Score Tracker",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "lint": "eslint \"**/*.js\"",
+    "test": "jest --verbose --coverage",
+    "test-watch": "jest --watchAll --verbose --coverage",
+    "jsdoc": "jsdoc -c ./docs/config/jsdoc.config.json",
+    "startDB": "mkdir -p ./.db && mongod --dbpath=./.db"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ginapult-401-advanced-javascript/getexcitedpeople.git"
+  },
+  "keywords": [],
+  "author": "Lyndsey",
+  "license": "MIT",
+  "bugs": {},
+  "dependencies": {
+    "cors": "^2.8.5",
+    "eslint": "^6.5.1",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "jsdoc": "^3.6.3",
+    "morgan": "^1.9.1",
+    "react": "^16.10.2",
+    "redux": "^4.0.4",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "redux-devtools-extension": "^2.13.8"
+  }
+}
