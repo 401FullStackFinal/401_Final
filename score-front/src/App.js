@@ -5,8 +5,12 @@ class App extends React.Component {
     super(); 
     this.state = {
       petsObject: {
-        name: '',
-        favoriteToy: '',
+        Khali: {name: 'Baby Khaleesi', favorite_toy: 'dumbells'},
+        Ginger: {name: 'Ginger', favorite_toy: 'bananas' },
+        Khal: {name: 'Khal Basil', favorite_toy: 'anything' },
+        Rosie: {name: 'Rosie', favorite_toy: 'ball' },
+        Demi: {name: 'Demi Dog', favorite_toy: 'rope' },
+        newName: {name: '', favorite_toy: ''}
       },
       // toys: [],
       // name: '',
@@ -39,10 +43,10 @@ class App extends React.Component {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ name: this.state.pets.name, favorite_toy: this.state.pets.favoriteToy }),
+      body: JSON.stringify({ name: this.state.petsObject.name, favorite_toy: this.state.petsObject.favorite_toy }),
     }).then(response => response.json())
       .then(body => this.setState((previousState) => {
-        return { pets: [...previousState.pets, body]}
+        return { pets: {...previousState.pets, body}}
       }));
   }
 
@@ -62,8 +66,12 @@ class App extends React.Component {
 
               <li key={this.state._id} >
 
-               <p> {this.state.petsObject.name} | {this.state.petsObject.favorite_toy}</p> : <p> {this.state.petsObject.name} | {this.state.petsObject.favorite_toy} </p>}
-                
+               <p> {this.state.petsObject.Khali.name} | {this.state.petsObject.Khali.favorite_toy}</p> 
+               <p> {this.state.petsObject.Ginger.name} | {this.state.petsObject.Ginger.favorite_toy} </p>
+               <p> {this.state.petsObject.Khal.name} | {this.state.petsObject.Khal.favorite_toy}</p>
+               <p> {this.state.petsObject.Rosie.name} | {this.state.petsObject.Rosie.favorite_toy}</p>
+               <p> {this.state.petsObject.Demi.name} | {this.state.petsObject.Demi.favorite_toy}</p>
+
                 <button onClick={(event) => this.handleDelete(event, this.state._id)}>
                   Delete
                
@@ -91,6 +99,6 @@ class App extends React.Component {
       </div>
     );
   }
-} 
+}
 
 export default App;
